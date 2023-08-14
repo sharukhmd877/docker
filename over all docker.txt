@@ -1,0 +1,122 @@
+created ec2 linux 2
+yum install docker -y
+service docker start
+docker --version
+ 
+ #our first container
+docker run hello-world
+docker ps -a
+docker run ubuntu
+docker run -it ubuntu
+docker ps
+docker run -itd ubuntu
+docker exec -it container_id /bin/sh
+docker logs container_id
+docker run -itd -p 80:80 --name app httpd
+docker inspect container_id
+docker stop app
+docker rm app
+docker rm $(docker ps -a -q)
+
+#docker commit and docker pull
+docker images
+docker ps -a
+docker pull ubuntu
+docker run -it image_id /bin/sh
+			apt-get update
+			apt-get install npm
+			exit
+docker images
+docker commit images_id ubuntu-npm
+docker images
+
+#creating our own images
+mkdir nodeapp
+cd nodeapp
+vim index.js
+vim Dockerfile
+docker build -t nodeapp .
+docker images
+docker run -itd -p 80:80 --name app --rm nodeapp
+
+we can access by public ip
+
+#pushing our image to docker
+cd nodeapp
+vim index.js
+vim Dockerfile
+docker build -t nodeapp .
+docker images
+docker run -itd -p 80:80 --name app --rm nodeapp
+
+docker tag nodeapp docker_id/nodeapp:latest
+docker images
+docker login
+  username
+  password
+docker push docker_id/nodeapp
+
+#docker network
+docker network ls
+docker network create mynet --driver bridge
+
+#database container using redis
+mkdir app
+cd app
+vim app.py
+vim requirements.txt
+vim Dockerfile
+
+docker build -t app .
+docker images
+docker run -itd -p 6379:6379 --name redis-con --rm --net mynet redis:3.2-alpine
+docker ps
+docker run -itd -p 80:80 --name webapp --rm --net mynet app
+
+run my ip address
+
+#to persist the data 
+docker run -itd -p 6379:6379 --name redis-con --rm -v redis-vol:/data --net mynet redis:3.2-alpine
+
+create the app container
+
+docker exec -it redis redis-cli
+doekr exec -it redis /bin/sh (see a dump file)
+docekr volume inspect redis-vol
+
+
+
+#docker compose
+installed docker compose in vm
+mkdir app
+cd app
+vim app.py
+vim requirements.txt
+vim Dockerfile
+vim .env
+vim docker-compose.yml
+
+docker-compose up -d
+docker-compose down
+
+#docker swarm
+first created 3 vm install dokcer in it
+docker swarm installed manually in manger vm
+it generated a token and using this token we connected to our worker nodes
+docker service create --name nginx-service nginx
+docker service ls
+docker service ps nginx
+docker service rm nginx-service
+
+docker service create --name nginx-service --replicas 3 nginx
+docker service ls (service in nodes)
+
+docker service inspect nginx
+docker service inspect nginx --pretty
+
+docker service update --replicas 5 nginx-service
+docker service ps nginx-service
+
+docker service create --name nginx -p 80:80 --replicas 2 nginx
+
+you can access by using public ip
