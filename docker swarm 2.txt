@@ -1,0 +1,45 @@
+created 3 ec2 vm
+in user data (in advance setting when you are configuring ec2)
+    #!/bin/bash
+	sudo su
+	yum install docker -y
+	service docker start
+rename vm - manager, worker 1, worker 2
+login to ec2 instance
+in manager vm - docker swarm init --advertise-addr <private_ip>c (it will generate a token, copy it)
+in worker 1 and worker 2 - paste the token
+in manager vm - docker node ls
+				docker service create  --name nginx-service nginx
+				docker service ls
+				docker service ps nginx-service
+				docker rm nginx-service
+				
+				docker service create --name nginx-service --replicas 3 nginx
+				docker service ls
+				docker service ps nginx-service
+				docker service inspect nginx-service
+				docker service inspect nginx-service --pretty
+				
+	instead of 3 service i want 5 
+				docker service update --replicas 5 nginx-service
+				docker servicce ps nginx-service
+				
+				
+in worker 1 and worker 2 - docker ps
+
+
+# what if any container is down
+in worker 1 - docker stop CONTAINER id
+			  docker rm container id
+			  
+still the container is running 
+manager - docker service ps nginx-service
+
+
+#what if whole node is down (worker 1 is down)
+worker1 - service docker stop
+
+manager - docker service ps nginx-service
+( services has been recreated in the remaining nodes)
+
+						   

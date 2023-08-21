@@ -1,0 +1,21 @@
+created ec2
+#custom network
+docker network create mynet --driver bridger
+
+#creating python app with our own image
+mkdir webapp 
+cd webapp
+vim app.py
+vim requirements.txt
+vim Dockerfile
+docker build -t webapp .
+docker images
+docker run -itd -p 6379:6379 --name redis --rm --net mynet redis:3.2-alpine  (created redis database container to store data of app)
+docker ps
+docker run -itd -p 80:5000 --name webapp --rm --net mynet webapp  (created to run your app)
+
+run your ip address you will app
+
+docker exec -it redis redis-cli
+	keys *
+	mget KEY_NAME

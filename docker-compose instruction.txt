@@ -1,0 +1,17 @@
+create ec2 
+mkdir webapp
+cd webapp
+DOCKER-COMPOSE   :-  https://acloudxpert.com/how-to-install-docker-compose-on-amazon-linux-ami/
+vim app.py
+vim requirements.txt
+vim Dockerfile
+vim .env
+vim docker-compose.yml
+
+docker-compose up -d
+
+docker ps
+
+docker-compose down    
+
+access your ip address    

@@ -1,0 +1,13 @@
+#to save .tfstate in s3 bucket
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+terraform {
+  backend "s3" {
+    bucket = "BUCKET_NAME" # Replace this with the S3 bucket name you created
+    key    = "terraform.tfstate"
+    region = "us-east-1" # Replace this with your desired AWS region
+  }
+}

@@ -1,0 +1,14 @@
+#we are not using vm, we are using aur own system 
+created a folder 
+created - index.js
+		- Dockerfile
+ access my terminal from the same folder by right-click
+ 
+docker --version
+docker build -t app .
+docker image ls (you by accessing your docekr desktop ---> images section)
+ddocker run -itd -p 5000:5000 --rm --name webapp app (can accessby using docker desktop ----> containers)
+docker ps
+
+go address bar and run ---> localhost:5000 
+		

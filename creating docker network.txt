@@ -1,0 +1,58 @@
+docker network ls
+docker network create mynetwork --driver bridge
+docker network inspect
+
+mkdir app
+cd app/
+vim app.py
+        from flask import Flask
+
+        app = Flask(__name__)
+		visit_counter = 0
+
+
+		@app.route('/')
+		def home():
+				global visit_counter
+				visit_counter += 1
+				return f"Welcome! You are visitor number {visit_counter}"
+
+
+				if __name__ == '__main__':
+					app.run()
+
+vim requirements.txt
+			Flask==2.0.1
+
+vim Dockerfile
+			# Base image
+          FROM python:3.7-alpine
+
+        # Set the working directory
+          WORKDIR /app
+
+        # Copy the requirements.txt file
+          COPY requirements.txt requirements.txt
+
+        # Install dependencies
+          RUN pip install -r requirements.txt
+
+		# Copy the Flask app files
+		  COPY app.py .
+
+		# Expose the port on which the app will run
+		  EXPOSE 5000
+
+		# Set the environment variables
+		  ENV FLASK_APP=app.py
+		  ENV FLASK_RUN_HOST=0.0.0.0
+
+		# Run the Flask app
+	      CMD ["flask", "run"]
+		  
+docker build -t app .
+docker image ls
+
+docker run -itd -p 80:5000 --name counterapp --rm --net mynetwork app
+
+access it by your public ip address

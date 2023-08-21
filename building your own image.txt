@@ -1,0 +1,17 @@
+ docker ps -a
+ ls
+ mkdir nodeapp
+ ls
+ cd nodeapp
+ vim index.js - https://nodejs.org/en/docs/guides/getting-started-guide
+ node -v
+ vim Dockerfile 
+	FROM node
+	WORKDIR /app
+	COPY . .
+	CMD ["node" , "index.js
+ docker build -t nodeapp .
+ docker image ls
+ docker run -itd -p 80:80 --name nodeapp --rm nodeapp
+ docker ps
+ run your public ip address of ec2-instance 

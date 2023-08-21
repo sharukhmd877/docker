@@ -1,0 +1,43 @@
+created ec2
+#custom network
+docker network create mynet --driver bridge
+
+#creating python app with our own image
+mkdir webapp 
+cd webapp
+vim app.py
+vim requirements.txt
+vim Dockerfile
+docker build -t webapp .
+docker images
+docker run -itd -p 6379:6379 --name redis --rm --net mynet redis:3.2-alpine  (created redis database container to store data of app)
+docker ps
+docker run -itd -p 80:5000 --name webapp --rm --net mynet webapp  (created to run your app)
+
+
+docker stop redis
+docker run -itd -p 6379:6379 --name redis --rm --net mynet redis:3.2-alpine
+
+#you will see that your counter is again startin from 1
+
+#access your ip address and see the result
+
+docker stop redis
+
+docker run -itd -p 6379:6379 --name redis --rm -v redis-vol:/data --net mynet redis:3.2-alpine
+
+#access ip addressand increase the counter
+
+docker volume ls
+docker volume inspect redis-cli
+docker exec -it redis redis-cli
+		ls
+		SAVE  (OK)
+		exit
+docker exec -it redis /bin/sh
+
+docker stop redis 
+
+docker run -itd -p 6379:6379 --name redis --rm -v redis-vol:/data --net mynet redis:3.2-alpine
+
+#you will see that your counter is starting from same no. before getting deleted.

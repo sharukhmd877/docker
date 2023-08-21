@@ -1,0 +1,22 @@
+docker run hello-world    
+docker ps -a
+docker run ubuntu
+docker run -it ubuntu
+	cd /etc/
+	ls
+	exit
+docker ps
+docker run -itd ubuntu
+docker stop CONTAINER ID
+docker exec -it CONTAINER ID /bin/sh
+	cd /etc/
+	ls
+	cat os-release
+	exit
+docker run -itd -p 80:80 --name app httpd
+docker logs CONTAINER ID
+docker inspect
+doker rm
+docker rm $(docker ps -a -q)
+
+NOTE = ubuntu and hello-world are image name it cab be changed according to enginners choice for example redis nginx etc
